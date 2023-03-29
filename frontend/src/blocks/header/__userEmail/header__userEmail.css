@@ -1,0 +1,14 @@
+
+.header__userEmail {
+    color: white;
+    font-weight: 500;
+font-size: 18px;
+line-height: 1.22;
+margin: 0 24px 0 0;
+}
+@media all and (max-width: 550px) {
+    .header__userEmail {
+        margin: 0 0 18px;
+        text-align: center;
+    }
+}

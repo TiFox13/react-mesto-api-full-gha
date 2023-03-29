@@ -1,0 +1,6 @@
+.auth-result-icon__no{
+    margin: 0 auto 32px;
+    width: 120px;
+    height: 120px;
+    background-image: url(../../../images/no.svg);
+}

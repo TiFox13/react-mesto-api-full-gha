@@ -1,0 +1,26 @@
+.save-button_auth {
+    box-sizing: content-box;
+    width: 358px;
+   
+    height: 50px;
+    border: 0;
+    padding: 0;
+    border-radius: 2px;
+   margin: 186px 0 15px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+}
+.save-button_auth:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+@media all and (max-width: 550px) {
+    .save-button_auth{ 
+        width: 260px;
+        font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    margin: 173px 0 20px;
+    }
+}

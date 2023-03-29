@@ -1,0 +1,14 @@
+.form__item_auth{
+    max-width: 348px;
+    background-color: #000;
+    margin: 0;
+    height: 27px;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 1) ;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #CCCCCC;
+}

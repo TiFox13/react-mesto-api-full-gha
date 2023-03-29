@@ -1,0 +1,18 @@
+
+.burger {
+    display: none;
+
+    background-color: black;
+}
+.burger:hover {
+    cursor: pointer;
+}
+
+@media all and (max-width: 550px) {
+    .burger{
+        display: block;
+grid-area: 2/2;
+justify-self: end;
+
+    }
+}

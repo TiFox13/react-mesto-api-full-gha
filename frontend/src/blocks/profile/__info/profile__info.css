@@ -1,0 +1,14 @@
+
+.profile__info {
+    display: flex;
+    color: #FFF;
+}
+
+
+@media all and (max-width: 550px) {
+    .profile__info {
+        flex-direction: column;
+        max-width: 282px;
+
+    }
+}

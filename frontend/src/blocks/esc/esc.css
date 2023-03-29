@@ -1,0 +1,18 @@
+.esc {
+    color: #A9A9A9;
+    border: 0;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.22;
+    background-color: #000;
+    }
+    .esc:hover {
+        cursor: pointer;
+        opacity: 0.6;
+    }
+    
+    @media all and (max-width: 550px) {
+        .esc {
+            margin: 0 40%;
+        }
+    }

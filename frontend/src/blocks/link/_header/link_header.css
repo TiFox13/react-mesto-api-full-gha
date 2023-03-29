@@ -1,0 +1,21 @@
+.link_header {
+    color: white;
+    font-weight: 400;
+font-size: 18px;
+line-height: 1.22;
+text-decoration: none;
+padding-top: 6px;
+height: 20px;
+}
+.link_header:hover {
+    opacity: 0.6;
+}
+@media all and (max-width: 550px) {
+    .link_header {
+        padding-top: 0;
+        font-size: 14px;
+line-height: 17px;
+margin-right: 30px;
+
+    }
+}

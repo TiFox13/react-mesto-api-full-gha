@@ -1,0 +1,14 @@
+
+.header__userEmail-block {
+    display: flex;
+    align-items: start;
+}
+
+@media all and (max-width: 550px) {
+    .header__userEmail-block {
+        display: none;
+        
+        grid-area: 1/1/2/3;
+        padding: 40px 89px;
+    }
+}

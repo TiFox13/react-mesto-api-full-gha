@@ -1,0 +1,7 @@
+.form__input-field_auth {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-left: 0;
+    margin-right: 0;
+}

@@ -1,0 +1,14 @@
+.link_auth {
+    color:  white;
+    margin: 0 15.5%;
+    text-decoration: none;
+}
+@media all and (max-width: 550px) {
+    .link_auth {
+        font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+text-align: center;
+margin: 0 8%;
+    }
+}

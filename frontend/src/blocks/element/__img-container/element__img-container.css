@@ -1,0 +1,7 @@
+.element__img-container {
+    max-width: 100%;
+    aspect-ratio: 1/1;
+    background-color: black;
+    line-height: 0%;   /*Я не знаю, почему, но без этого контейнер не был квадратным.*/
+    border-radius: 10px 10px 0 0;
+}

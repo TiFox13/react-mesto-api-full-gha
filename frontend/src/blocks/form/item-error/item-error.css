@@ -1,0 +1,10 @@
+
+.form__item-error {
+    opacity: 0;
+    color: red;
+    min-height: 30px;
+    
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+}

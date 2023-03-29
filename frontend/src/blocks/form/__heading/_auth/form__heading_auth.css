@@ -1,0 +1,19 @@
+
+.form__heading_auth {
+    margin: 0;
+    color:  white;
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 900;
+font-size: 24px;
+line-height: 29px;
+
+text-align: center;
+padding-bottom: 50px;
+}
+@media all and (max-width: 550px) {
+    .form__heading_auth  {
+        font-size: 20px;
+line-height: 24px;
+    }
+}

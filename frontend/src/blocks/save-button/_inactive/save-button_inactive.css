@@ -1,0 +1,10 @@
+.save-button_inactive {
+    color: #C4C4C4;
+    background-color: #fff;
+    border: #C4C4C4 1px solid;
+}
+
+.save-button_inactive:hover {
+    cursor: auto;
+    opacity: 1;
+}

@@ -1,0 +1,11 @@
+
+.popup__container_auth {
+    width: 430px;
+    margin: 150px auto;
+}
+@media all and (max-width: 550px) {
+    .popup__container_auth {
+        width: 280px;
+        margin: 130px auto;
+    }
+}
