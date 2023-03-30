@@ -2,5 +2,8 @@
   "dependencies": {
     "express-winston": "^4.2.0",
     "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "react-scripts": "^5.0.1"
   }
 }

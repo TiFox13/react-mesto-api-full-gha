@@ -102,7 +102,7 @@ class Api {
 
 //подключаем API
 export const api = new Api({
-  url: "https://mesto.nomoreparties.co/v1/cohort-54",
+  url: "https://api.ti.fox.mesto.students.nomoredomains.work",
   headers: {
     authorization: '532cb979-197b-4764-a60b-369a0c33ba6e',
     "Content-type": 'application/json'
