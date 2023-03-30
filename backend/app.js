@@ -19,9 +19,9 @@ mongoose.connect('mongodb://0.0.0.0:27017/mestodb', {
 });
 
 const app = express();
+app.use(cors());
 app.use(bodyParse.json());
 app.use(bodyParse.urlencoded({ extended: true }));
-app.use(cors);
 
 app.use(requestLogger);
 
