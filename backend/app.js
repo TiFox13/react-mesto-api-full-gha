@@ -24,9 +24,6 @@ app.use(bodyParse.json());
 app.use(bodyParse.urlencoded({ extended: true }));
 
 app.use(requestLogger);
-let corsOptions = {
-  origin : ['http://localhost:3000'],
-}
 
 app.use(cors())
 app.use(usersRouter);

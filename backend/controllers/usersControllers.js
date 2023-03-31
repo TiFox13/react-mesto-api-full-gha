@@ -14,9 +14,7 @@ function login(req, res, next) {
     // все сошлось, теперь выдаем пользователю токен
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, 'super-strong-secret', { expiresIn: '7d' });
-      res.send({
-        token: token,
-      });
+      res.send({ token });
     })
     .catch(next);
 }

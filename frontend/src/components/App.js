@@ -28,11 +28,30 @@ function App() {
   //переменные состояния (пользователь и массив карточек)
   const [currentUser, setCurrentUser] = React.useState([]);
   const [currentCard, setCards] = React.useState([]);
-  const [loggedIn, setLoggedIn] = React.useState(false)
-  const [user, setUser] = React.useState({})
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [user, setUser] = React.useState({});
   const  [infoTooltipOpen, setInfoTooltipOpened] = React.useState(false);
-  const [statusForInfoTooltip, setStatusForInfoTooltip] =React.useState('')
+  const [statusForInfoTooltip, setStatusForInfoTooltip] =React.useState('');
 
+    // пока уберем в карман ,чтобы заходить каждый раз и отслеживать как идут запросы на сервер
+    React.useEffect(() => {
+      const jwt =localStorage.getItem('jwt');
+      if (jwt) {
+        Auth.getToken(jwt)
+          .then((res) =>{
+            setLoggedIn(true);
+            console.log(loggedIn);
+            setUser(res);   //не записывается инфа про юзера
+            console.log(user.email);
+            navigate('/');
+            })
+          .catch((error) => {
+            console.log(error); // выведем ошибку в консоль
+          })
+          
+      }
+    }, [])
+    
   //Забираем с сервера данные о пользователе
   React.useEffect(() => {
     if (loggedIn) {      //если loggedIn изменяется, то надо запустить этот useEffect, но исполнить запрос ТОЛЬКО если  loggedIn будет true
@@ -206,7 +225,7 @@ function App() {
       .then(()=> {
         Auth.getToken(localStorage.getItem('jwt'))
           .then((res) =>{
-            setUser(res.data);
+            setUser(res);
             navigate('/')
           })
       .then(() => {
@@ -243,27 +262,8 @@ function App() {
       })
   }
   
-  React.useEffect(() => {
-    tokenCheck();
-  }, [])
 
-
-  function tokenCheck() {
-    const jwt =localStorage.getItem('jwt');
-
-    if (jwt) {
-      Auth.getToken(localStorage.getItem('jwt'))
-        .then((res) =>{
-          setLoggedIn(true);
-          setUser(res.data);
-          navigate('/')
-          })
-        .catch((error) => {
-          console.log(error); // выведем ошибку в консоль
-        })
-    }
-  }
-
+ // ВЫХОД ИЗ ПРИЛОЖЕНИЯ
   function signOut(){
     localStorage.removeItem('jwt');
     navigate('/sign-in');
@@ -303,7 +303,9 @@ function App() {
               <CurrentCardContext.Provider value={currentCard}> 
                 <Header>
                   <div className='header__userEmail-block'>
-                    <h3 className='header__userEmail'>{user.email}</h3>
+                    <h3 className='header__userEmail'>
+                      {user.email}
+                      </h3>
                     <button className="esc" onClick={signOut}>
                       Выйти
                     </button>
