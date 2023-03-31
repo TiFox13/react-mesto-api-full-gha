@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.ti.fox.mesto.students.nomoredomains.work';  //возможно пока надо http
+export const BASE_URL = 'http://localhost:3001';  //возможно пока надо http
 
 
 const getResponse = (res) => {
@@ -17,7 +17,7 @@ export const register = (email, password) => {
       .then(getResponse)
 }
 
-export const login= (email, password) => {
+export const login = (email, password) => {
   return (
     fetch(`${BASE_URL}/signin`, {
         method: 'POST',

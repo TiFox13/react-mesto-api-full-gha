@@ -15,9 +15,7 @@ function login(req, res, next) {
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, 'super-strong-secret', { expiresIn: '7d' });
       res.send({
-        email: user.email,
-        password: user.password,
-        token,
+        token: token,
       });
     })
     .catch(next);

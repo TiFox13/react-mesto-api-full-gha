@@ -1,4 +1,4 @@
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -19,12 +19,16 @@ mongoose.connect('mongodb://0.0.0.0:27017/mestodb', {
 });
 
 const app = express();
-app.use(cors());
+
 app.use(bodyParse.json());
 app.use(bodyParse.urlencoded({ extended: true }));
 
 app.use(requestLogger);
+let corsOptions = {
+  origin : ['http://localhost:3000'],
+}
 
+app.use(cors())
 app.use(usersRouter);
 app.use(cardsRouter);
 

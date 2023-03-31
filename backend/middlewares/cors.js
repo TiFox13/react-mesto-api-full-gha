@@ -5,15 +5,20 @@ const allowedCors = [
   'https://localhost:3001',
 ];
 
-const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-module.exports = (req, res, next) => {
+ const cors =  (req, res, next) => {
 
+  console.log("мидлвер для cors работает");
+
+const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
+
+  console.log(origin);
+
 const { method } = req;
 const requestHeaders = req.headers['access-control-request-headers'];
-if (allowedCors.includes(origin)) {
+if (allowedCors.includes("http://localhost:3001")) {
   // устанавливаем заголовок, который разрешает браузеру запросы с этого источника
-    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Origin', "http://localhost:3001");
   }
   if (method === 'OPTIONS') {
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
@@ -23,3 +28,5 @@ if (allowedCors.includes(origin)) {
 
   next();
 };
+
+module.exports = cors;
