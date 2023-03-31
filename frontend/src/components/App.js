@@ -40,9 +40,9 @@ function App() {
         Auth.getToken(jwt)
           .then((res) =>{
             setLoggedIn(true);
-            console.log(loggedIn);
+
             setUser(res);   //не записывается инфа про юзера
-            console.log(user.email);
+
             navigate('/');
             })
           .catch((error) => {
@@ -123,6 +123,7 @@ function App() {
     api.patchUserInfo(item)
       .then((res) =>{
         setCurrentUser(res)
+      
       })
       .then ((res) => {
         closeAllPopups();  //закроем попап

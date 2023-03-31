@@ -46,6 +46,7 @@ class Api {
     return this._request(`${this._url}/cards`,
       {
         headers: {
+          "Content-type": 'application/json',
           authorization: `Bearer ${token}`,
         },
         method: "POST",
@@ -63,6 +64,7 @@ class Api {
     return this._request(`${this._url}/users/me`,
       {
         headers: {
+          "Content-type": 'application/json',
           authorization: `Bearer ${token}`,
         },
         method: "PATCH",
@@ -79,6 +81,7 @@ class Api {
     return this._request(`${this._url}/users/me/avatar`,
       {
         headers: {
+          "Content-type": 'application/json',
           authorization: `Bearer ${token}`,
         },
         method: "PATCH",
