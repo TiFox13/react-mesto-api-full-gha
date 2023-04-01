@@ -53,7 +53,7 @@ class Api {
         body: JSON.stringify({
           name: item.name,
           link: item.link,
-          likes: {}
+          // likes: {}
         })
       }
     )
@@ -112,6 +112,7 @@ class Api {
           authorization: `Bearer ${token}`,
         },
         method: "PUT",
+
       }
     )
   }

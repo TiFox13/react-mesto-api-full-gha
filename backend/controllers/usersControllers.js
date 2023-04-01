@@ -130,8 +130,9 @@ function pathAvatar(req, res, next) {
       if (!user) {
         next(new ValidationError('Пользователь с указанным _id не найден'));
       }
+      return res.send(user)
     })
-    .then(() => res.send(req.body))
+    // .then((user) => res.send(req.body))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new CastError('Переданы некорректные данные при обновлении профиля'));

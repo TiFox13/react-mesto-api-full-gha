@@ -2,8 +2,8 @@ import React from "react";
 
 function Card({deletedCard, onCardDelete, onCardLike, onCardClick, card, user}) {
 
-  const isOwn = card.owner._id === user;
-  const isLiked = card.likes.some(i => i._id === user);
+  const isOwn = (card.owner === user);
+  const isLiked = card.likes.some(i => i === user);
   const cardLikeButtonClassName = ( 
     `like ${isLiked && 'like_active'}` 
   );

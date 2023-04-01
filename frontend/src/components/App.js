@@ -33,14 +33,14 @@ function App() {
   const  [infoTooltipOpen, setInfoTooltipOpened] = React.useState(false);
   const [statusForInfoTooltip, setStatusForInfoTooltip] =React.useState('');
 
-    // пока уберем в карман ,чтобы заходить каждый раз и отслеживать как идут запросы на сервер
+   // ПРОВЕРКА ТОКЕНА
     React.useEffect(() => {
       const jwt =localStorage.getItem('jwt');
       if (jwt) {
         Auth.getToken(jwt)
           .then((res) =>{
             setLoggedIn(true);
-
+console.log('проверка токена', loggedIn)
             setUser(res);   //не записывается инфа про юзера
 
             navigate('/');
@@ -51,10 +51,20 @@ function App() {
           
       }
     }, [])
+
+    
+ // ВЫХОД ИЗ ПРИЛОЖЕНИЯ
+  function signOut(){
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
+    console.log('выход', loggedIn)
+    navigate('/sign-in');
+  }
     
   //Забираем с сервера данные о пользователе
   React.useEffect(() => {
-    if (loggedIn) {      //если loggedIn изменяется, то надо запустить этот useEffect, но исполнить запрос ТОЛЬКО если  loggedIn будет true
+    if (loggedIn) {  
+      console.log("загружаю данные пользователя")    //если loggedIn изменяется, то надо запустить этот useEffect, но исполнить запрос ТОЛЬКО если  loggedIn будет true
     api.getUserInfo()
       .then((res) => {
         setCurrentUser(res)
@@ -77,7 +87,7 @@ function App() {
         console.log(error); // выведем ошибку в консоль
       })
     }
-  }, [loggedIn] )
+  }, [loggedIn])
 
   // переменные состояния попапов ( открыты или нет?)
   const [editProfileOpen, setEditProfileOpened] = React.useState(false);
@@ -165,7 +175,7 @@ function App() {
 
   //ЛАЙКИ
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
     if (!isLiked) {    // если не лайкали, то надо лайкнуть!
       api.putLike(card._id, !isLiked)
@@ -215,23 +225,22 @@ function App() {
   
   const [massage, setMessage] = React.useState('')
 
+   // ЛОГИН
   function handleLogin(email, password ) {
     Auth.login(email, password)
       .then((data) => {      
         if (data.token){
           localStorage.setItem('jwt', data.token)
-          setLoggedIn(true)
         }
       })
       .then(()=> {
+        console.log('логинимся', loggedIn)
         Auth.getToken(localStorage.getItem('jwt'))
           .then((res) =>{
+            setLoggedIn(true);
             setUser(res);
             navigate('/')
           })
-      .then(() => {
-        
-      })
           .catch((error) => {
             console.log(error); // выведем ошибку в консоль
           }) 
@@ -264,11 +273,6 @@ function App() {
   }
   
 
- // ВЫХОД ИЗ ПРИЛОЖЕНИЯ
-  function signOut(){
-    localStorage.removeItem('jwt');
-    navigate('/sign-in');
-  }
 
 
   return (
