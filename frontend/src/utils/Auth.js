@@ -7,29 +7,29 @@ const getResponse = (res) => {
 
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
-          method: "POST",
-          headers: {
-          Accept: "application/json",
-              "Content-Type": "application/json", 
-          },
-          body: JSON.stringify({email, password})
-         })
-      .then(getResponse)
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password })
+  })
+    .then(getResponse)
 }
 
 export const login = (email, password) => {
   return (
     fetch(`${BASE_URL}/signin`, {
-        method: 'POST',
-        headers: {
-      
-            "Content-Type": "application/json", 
-        },
-        body: JSON.stringify({email, password})
+      method: 'POST',
+      headers: {
+
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password })
     })
-    .then(getResponse)
- 
-)
+      .then(getResponse)
+
+  )
 }
 
 export const getToken = (token) => {
@@ -37,11 +37,11 @@ export const getToken = (token) => {
     fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
       headers: {
-       "Accept": "application/json",
+        "Accept": "application/json",
         "Content-Type": "application/json",
-        "Authorization" : `Bearer ${token}`, 
+        "Authorization": `Bearer ${token}`,
       },
-  })
-  .then(getResponse)
+    })
+      .then(getResponse)
   )
 }

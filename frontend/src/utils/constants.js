@@ -29,13 +29,13 @@ export const images = [
   { name: 'likeIcon', link: likeIcon },
   { name: 'likeActiveIcon', link: likeActiveIcon },
   { name: 'avatarEditIcon', link: avatarEditIcon },
-]; 
+];
 
 export const buttonEdit = document.querySelector('.edit-button'); //кнопка "редактировать"
 export const popupEditProfile = document.querySelector('.popup_edit-profile');  //попап редактирования профиля
 
 export const newPlacePopup = document.querySelector('.popup_new-place'); //попап создания карточек
-export const newAvatarPopup =  document.querySelector('.popup_new-avatar'); //попап аватарка
+export const newAvatarPopup = document.querySelector('.popup_new-avatar'); //попап аватарка
 
 export const profileEditForm = popupEditProfile.querySelector('.form');  //вот переменная с формой
 export const newPlaceCreateForm = newPlacePopup.querySelector('.form');

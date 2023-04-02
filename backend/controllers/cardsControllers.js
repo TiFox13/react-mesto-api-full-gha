@@ -3,7 +3,6 @@ const { ValidationError } = require('../Errors/ValidationError');
 const { CastError } = require('../Errors/CastError');
 const { InternalServerError } = require('../Errors/InternalServerError');
 const { Forbidden } = require('../Errors/Forbidden');
-const { Console } = require('winston/lib/winston/transports');
 
 // ПОЛУЧЕНИЕ КАРТОЧЕК
 function getCards(req, res, next) {
@@ -31,10 +30,8 @@ function createCard(req, res, next) {
 
 // УДАЛЕНИЕ КАРТОЧКИ
 function deleteCard(req, res, next) {
-
   CardSchema.findById(req.params.cardId)
     .then((card) => {
-      console.log(card.owner.valueOf() === req.user._id)
       if (!card) {
         next(new ValidationError('Карточка с указанным _id не найдена'));
         return;
@@ -43,7 +40,6 @@ function deleteCard(req, res, next) {
         next(new Forbidden('Нельзя удалять чужие карточки'));
         return;
       }
-      console.log(card)
       CardSchema.findByIdAndRemove(req.params.cardId)
         .then(() => res.send({ message: 'Карточка успешно удалена' }))
         .catch(() => next(new InternalServerError()));

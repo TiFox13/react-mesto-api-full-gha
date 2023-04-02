@@ -104,9 +104,9 @@ function patchUserInfo(req, res, next) {
   )
     .then((user) => {
       if (!user) {
-       return next(new ValidationError('Пользователь с указанным _id не найден'));
+        return next(new ValidationError('Пользователь с указанным _id не найден'));
       }
-      return res.send(user)
+      return res.send(user);
     })
     // .then((user) => res.send(req.body))
     .catch((err) => {
@@ -130,7 +130,7 @@ function pathAvatar(req, res, next) {
       if (!user) {
         next(new ValidationError('Пользователь с указанным _id не найден'));
       }
-      return res.send(user)
+      return res.send(user);
     })
     // .then((user) => res.send(req.body))
     .catch((err) => {

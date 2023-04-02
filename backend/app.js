@@ -25,19 +25,19 @@ app.use(bodyParse.urlencoded({ extended: true }));
 
 app.use(requestLogger);
 
-app.use(cors())
+app.use(cors());
 app.use(usersRouter);
 app.use(cardsRouter);
 
 app.use(errorLogger);
 
-// app.use('*', (req, res, next) => {
-//   next(new ValidationError('Страницы по данному адресу не существует'));
-// });
+app.use('*', (req, res, next) => {
+  next(new ValidationError('Страницы по данному адресу не существует'));
+});
 
 app.use(errors());
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-   console.log(`App listening on port ${PORT}`);
+  console.log(`App listening on port ${PORT}`);
 });

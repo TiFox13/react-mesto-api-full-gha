@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Routes, useNavigate, Link } from 'react-router-dom';
+import { Route, Routes, useNavigate, Link } from 'react-router-dom';
 import ProtectedRouteElement from "./ProtectedRoute";
 import Login from './Login.js';
 import Register from './Register.js';
@@ -13,8 +13,8 @@ import Main from './Main.js'
 import Footer from './Footer.js'
 import ImagePopup from './ImagePopup.js';
 
-import {CurrentUserContext} from '../contexts/CurrentUserContext.js'
-import {CurrentCardContext} from '../contexts/CurrentCardContext.js'
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
+import { CurrentCardContext } from '../contexts/CurrentCardContext.js'
 import { api } from '../utils/Api.js'
 
 import EditProfilePopup from './EditProfilePopup.js';
@@ -30,62 +30,62 @@ function App() {
   const [currentCard, setCards] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [user, setUser] = React.useState({});
-  const  [infoTooltipOpen, setInfoTooltipOpened] = React.useState(false);
-  const [statusForInfoTooltip, setStatusForInfoTooltip] =React.useState('');
+  const [infoTooltipOpen, setInfoTooltipOpened] = React.useState(false);
+  const [statusForInfoTooltip, setStatusForInfoTooltip] = React.useState('');
 
-   // ПРОВЕРКА ТОКЕНА
-    React.useEffect(() => {
-      const jwt =localStorage.getItem('jwt');
-      if (jwt) {
-        Auth.getToken(jwt)
-          .then((res) =>{
-            setLoggedIn(true);
-console.log('проверка токена', loggedIn)
-            setUser(res);   //не записывается инфа про юзера
+  // ПРОВЕРКА ТОКЕНА
+  React.useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      Auth.getToken(jwt)
+        .then((res) => {
+          setLoggedIn(true);
+          console.log('проверка токена', loggedIn)
+          setUser(res);   //не записывается инфа про юзера
 
-            navigate('/');
-            })
-          .catch((error) => {
-            console.log(error); // выведем ошибку в консоль
-          })
-          
-      }
-    }, [])
+          navigate('/');
+        })
+        .catch((error) => {
+          console.log(error); // выведем ошибку в консоль
+        })
 
-    
- // ВЫХОД ИЗ ПРИЛОЖЕНИЯ
-  function signOut(){
+    }
+  }, [])
+
+
+  // ВЫХОД ИЗ ПРИЛОЖЕНИЯ
+  function signOut() {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
     console.log('выход', loggedIn)
     navigate('/sign-in');
   }
-    
+
   //Забираем с сервера данные о пользователе
   React.useEffect(() => {
-    if (loggedIn) {  
+    if (loggedIn) {
       console.log("загружаю данные пользователя")    //если loggedIn изменяется, то надо запустить этот useEffect, но исполнить запрос ТОЛЬКО если  loggedIn будет true
-    api.getUserInfo()
-      .then((res) => {
-        setCurrentUser(res)
-      })
-      .catch((error) => {
-        console.log(error); // выведем ошибку в консоль
-      })
+      api.getUserInfo()
+        .then((res) => {
+          setCurrentUser(res)
+        })
+        .catch((error) => {
+          console.log(error); // выведем ошибку в консоль
+        })
     }
   }, [loggedIn])
 
   // забираем с сервера карточки
   React.useEffect(() => {
     if (loggedIn) {      //если loggedIn изменяется, то надо запустить этот useEffect, но исполнить запрос ТОЛЬКО если  loggedIn будет true
-    api.getInitialCards()
-      .then((res) => {
-        setCards(res)
-        
-      })
-      .catch((error) => {
-        console.log(error); // выведем ошибку в консоль
-      })
+      api.getInitialCards()
+        .then((res) => {
+          setCards(res)
+
+        })
+        .catch((error) => {
+          console.log(error); // выведем ошибку в консоль
+        })
     }
   }, [loggedIn])
 
@@ -114,7 +114,7 @@ console.log('проверка токена', loggedIn)
     setPreDeleteOpened(true);
   }
 
-  function handleCardClick(selectedCard)  {
+  function handleCardClick(selectedCard) {
     setSelectedCard(selectedCard);
   }
 
@@ -129,13 +129,13 @@ console.log('проверка токена', loggedIn)
   }
 
   //отправляет на сервер новые данные по юзеру
-  function handleUpdateUser (item) {
+  function handleUpdateUser(item) {
     api.patchUserInfo(item)
-      .then((res) =>{
+      .then((res) => {
         setCurrentUser(res)
-      
+
       })
-      .then ((res) => {
+      .then((res) => {
         closeAllPopups();  //закроем попап
       })
       .catch((error) => {
@@ -149,7 +149,7 @@ console.log('проверка токена', loggedIn)
       .then((res) => {
         setCurrentUser(res)
       })
-      .then ((res) => {
+      .then((res) => {
         closeAllPopups();  //закроем попап
       })
       .catch((error) => {
@@ -160,10 +160,10 @@ console.log('проверка токена', loggedIn)
   //отправляет на сервер новую карточку
   function handleAddPlaceSubmit(item) {
     api.addNewCard(item)
-      .then ((res) => {
+      .then((res) => {
         setCards([res, ...currentCard])
       })
-      .then ((res) => {
+      .then((res) => {
         closeAllPopups();  //закроем попап
       })
       .catch((error) => {
@@ -189,7 +189,7 @@ console.log('проверка токена', loggedIn)
       api.deleteLike(card._id, !isLiked)
         .then((newCard) => {
           setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-       })
+        })
         .catch((error) => {
           console.log(error); // выведем ошибку в консоль
         })
@@ -197,20 +197,20 @@ console.log('проверка токена', loggedIn)
   }
 
   //удаление карточки
-    //переменная состояния для УДАЛЕНИЯ карточки. ( сюда должна упасть карточка которую мы удаляем)
-    const [deletedCard, setDeletedCard] = React.useState({});
+  //переменная состояния для УДАЛЕНИЯ карточки. ( сюда должна упасть карточка которую мы удаляем)
+  const [deletedCard, setDeletedCard] = React.useState({});
 
-    function handleCardDelClick(deletedCard)  {
-      setDeletedCard(deletedCard);
-    }
+  function handleCardDelClick(deletedCard) {
+    setDeletedCard(deletedCard);
+  }
   function hendleCardDelete(card) {
     api.deleteCard(card._id)
       .then((res) => {
       })
       .then((res) => {
         setCards((state) => state.filter((item) => {
-          return item._id !== card._id 
-        }) 
+          return item._id !== card._id
+        })
         )
       })
       .then((res) => {
@@ -221,42 +221,42 @@ console.log('проверка токена', loggedIn)
       })
   }
 
-  const navigate = useNavigate(); 
-  
+  const navigate = useNavigate();
+
   const [massage, setMessage] = React.useState('')
 
-   // ЛОГИН
-  function handleLogin(email, password ) {
+  // ЛОГИН
+  function handleLogin(email, password) {
     Auth.login(email, password)
-      .then((data) => {      
-        if (data.token){
+      .then((data) => {
+        if (data.token) {
           localStorage.setItem('jwt', data.token)
         }
       })
-      .then(()=> {
+      .then(() => {
         console.log('логинимся', loggedIn)
         Auth.getToken(localStorage.getItem('jwt'))
-          .then((res) =>{
+          .then((res) => {
             setLoggedIn(true);
             setUser(res);
             navigate('/')
           })
           .catch((error) => {
             console.log(error); // выведем ошибку в консоль
-          }) 
-    })
+          })
+      })
       .catch(() => {
         setMessage('Что-то пошло не так! Попоробуйте еще раз.')
         setStatusForInfoTooltip('no')
         handleInfoTooltipOpen()
       })
-      setMessage('')  
+    setMessage('')
   }
 
   function handleInfoTooltipOpen() {
     setInfoTooltipOpened(true);
   }
-  
+
   function handleRegister(email, password) {
 
     Auth.register(email, password)
@@ -271,12 +271,12 @@ console.log('проверка токена', loggedIn)
         handleInfoTooltipOpen()
       })
   }
-  
+
 
 
 
   return (
-    <div className = "page">
+    <div className="page">
       <div className="page__content">
         <Routes>
           <Route path='/sign-up' element={
@@ -285,11 +285,11 @@ console.log('проверка токена', loggedIn)
                 <Link to='/sign-in' className="link link_header">
                   Войти
                 </Link>
-              </Header> 
+              </Header>
               <Register handleSubmit={handleRegister} />
-              <InfoTooltip isOpen={infoTooltipOpen} onClose={closeAllPopups} massage={massage} status={statusForInfoTooltip}/>
+              <InfoTooltip isOpen={infoTooltipOpen} onClose={closeAllPopups} massage={massage} status={statusForInfoTooltip} />
             </div>
-          }/>
+          } />
 
           <Route path='/sign-in' element={
             <div>
@@ -297,41 +297,41 @@ console.log('проверка токена', loggedIn)
                 <Link to='/sign-up' className="link link_header">
                   Регистрация
                 </Link>
-              </Header> 
-              <Login handleSubmit={handleLogin}/>
-              <InfoTooltip isOpen={infoTooltipOpen} onClose={closeAllPopups} massage={massage} status={statusForInfoTooltip}/>
+              </Header>
+              <Login handleSubmit={handleLogin} />
+              <InfoTooltip isOpen={infoTooltipOpen} onClose={closeAllPopups} massage={massage} status={statusForInfoTooltip} />
             </div>
-          }/>
+          } />
 
-          <Route path='/' element={ <ProtectedRouteElement loggedIn={loggedIn} element={
+          <Route path='/' element={<ProtectedRouteElement loggedIn={loggedIn} element={
             <CurrentUserContext.Provider value={currentUser}>
-              <CurrentCardContext.Provider value={currentCard}> 
+              <CurrentCardContext.Provider value={currentCard}>
                 <Header>
                   <div className='header__userEmail-block'>
                     <h3 className='header__userEmail'>
                       {user.email}
-                      </h3>
+                    </h3>
                     <button className="esc" onClick={signOut}>
                       Выйти
                     </button>
                   </div>
-                </Header> 
-                <Main card={handleCardDelClick} onCardDelete={handlePreDeleteClick} onCardLike={handleCardLike}  onCardClick={handleCardClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} />
+                </Header>
+                <Main card={handleCardDelClick} onCardDelete={handlePreDeleteClick} onCardLike={handleCardLike} onCardClick={handleCardClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} />
                 <Footer />
 
-                <EditProfilePopup onUpdateUser={handleUpdateUser}  isOpen={editProfileOpen} onClose={closeAllPopups} /> 
+                <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={editProfileOpen} onClose={closeAllPopups} />
                 <AddPlacePopup onAddCard={handleAddPlaceSubmit} isOpen={addPlaceOpen} onClose={closeAllPopups} title={'Новое место'} name={'new-place'} />
-                <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={editAvatarOpen} onClose={closeAllPopups} /> 
-                <PreDeletePopup deletedCard={deletedCard} onDeleteCard={hendleCardDelete} isOpen={preDeleteOpen} onClose={closeAllPopups}/> 
-                <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
+                <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={editAvatarOpen} onClose={closeAllPopups} />
+                <PreDeletePopup deletedCard={deletedCard} onDeleteCard={hendleCardDelete} isOpen={preDeleteOpen} onClose={closeAllPopups} />
+                <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
               </CurrentCardContext.Provider>
-            </CurrentUserContext.Provider>  
-          }/>
-          }/>
+            </CurrentUserContext.Provider>
+          } />
+          } />
         </Routes>
       </div>
-    </div>  
+    </div>
   )
 }
 
