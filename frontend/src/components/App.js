@@ -40,7 +40,6 @@ function App() {
       Auth.getToken(jwt)
         .then((res) => {
           setLoggedIn(true);
-          console.log('проверка токена', loggedIn)
           setUser(res);   //не записывается инфа про юзера
 
           navigate('/');
@@ -57,14 +56,13 @@ function App() {
   function signOut() {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
-    console.log('выход', loggedIn)
     navigate('/sign-in');
   }
 
   //Забираем с сервера данные о пользователе
   React.useEffect(() => {
     if (loggedIn) {
-      console.log("загружаю данные пользователя")    //если loggedIn изменяется, то надо запустить этот useEffect, но исполнить запрос ТОЛЬКО если  loggedIn будет true
+  //если loggedIn изменяется, то надо запустить этот useEffect, но исполнить запрос ТОЛЬКО если  loggedIn будет true
       api.getUserInfo()
         .then((res) => {
           setCurrentUser(res)
@@ -234,7 +232,6 @@ function App() {
         }
       })
       .then(() => {
-        console.log('логинимся', loggedIn)
         Auth.getToken(localStorage.getItem('jwt'))
           .then((res) => {
             setLoggedIn(true);

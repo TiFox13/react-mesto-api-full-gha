@@ -132,7 +132,7 @@ class Api {
 
 //подключаем API
 export const api = new Api({
-  url: "http://localhost:3001",
+  url: "http://api.ti.fox.mesto.students.nomoredomains.work",
   headers: {
     "Content-type": 'application/json'
   }
