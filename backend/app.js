@@ -23,12 +23,22 @@ const app = express();
 app.use(bodyParse.json());
 app.use(bodyParse.urlencoded({ extended: true }));
 
+// логгер запросов
 app.use(requestLogger);
 
 app.use(cors());
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
+// основные роуты
 app.use(usersRouter);
 app.use(cardsRouter);
 
+// логгер ошибок
 app.use(errorLogger);
 
 app.use('*', (req, res, next) => {
