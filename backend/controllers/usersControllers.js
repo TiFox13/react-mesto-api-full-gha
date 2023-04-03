@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const bcrypt = require('bcryptjs');
@@ -16,7 +16,10 @@ function login(req, res, next) {
   return UserSchema.findUserByCredentials({ email, password })
     // все сошлось, теперь выдаем пользователю токен
     .then((user) => {
-      const token = jwt.sign({ _id: user._id },  NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key', { expiresIn: '7d' });
+      console.log(NODE_ENV)
+      const token = jwt.sign({ _id: user._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
+        { expiresIn: '7d' });
       res.send({ token });
     })
     .catch(next);
