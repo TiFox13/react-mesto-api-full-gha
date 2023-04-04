@@ -8,6 +8,6 @@ function method(value, helpers) {
   return helpers.message('not Id');
 }
 
-const idValidator = Joi.string().custom(method, 'custom id validation');
+const idValidator = Joi.string().custom(method, 'custom id validation').required();
 
 module.exports = { idValidator };

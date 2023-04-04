@@ -31,7 +31,7 @@ function getUsers(req, res, next) {
     .then((users) => {
       res.send(users);
     })
-    .catch(() => next(new InternalServerError()));
+    .catch(() => next());
 }
 
 // ПОЛУЧЕНИЕ ПОЛЬЗОВАТЕЛЯ ПО ID
@@ -48,7 +48,7 @@ function getUserById(req, res, next) {
       if (err.name === 'CastError') {
         next(new CastError('Переданы некорректные данные _id пользователя'));
       } else {
-        next(new InternalServerError());
+        next();
       }
     });
 }
@@ -66,7 +66,7 @@ function getUser(req, res, next) {
       // возвращаем пользователя, если он есть
       res.send(user);
     })
-    .catch(() => next(new InternalServerError()));
+    .catch();
 }
 
 // СОЗДАНИЕ НОВОГО ПОЛЬЗОВАТЕЛЯ
@@ -119,7 +119,7 @@ function patchUserInfo(req, res, next) {
       if (err.name === 'ValidationError') {
         next(new CastError('Переданы некорректные данные при обновлении профиля'));
       } else {
-        next(new InternalServerError());
+        next();
       }
     });
 }
@@ -143,7 +143,7 @@ function pathAvatar(req, res, next) {
       if (err.name === 'ValidationError') {
         next(new CastError('Переданы некорректные данные при обновлении профиля'));
       } else {
-        next(new InternalServerError());
+        next();
       }
     });
 }

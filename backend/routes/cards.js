@@ -10,10 +10,10 @@ const {
 } = require('../controllers/cardsControllers');
 const { idValidator } = require('../utils/validator');
 
-router.get('/cards', auth, getCards);
+router.get('/', auth, getCards);
 
 router.post(
-  '/cards',
+  '/',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       name: Joi.string().required().min(2).max(30),
@@ -26,7 +26,7 @@ router.post(
 );
 
 router.delete(
-  '/cards/:cardId',
+  '/:cardId',
   celebrate({
     [Segments.PARAMS]: Joi.object().keys({
       cardId: idValidator,
@@ -37,7 +37,7 @@ router.delete(
 );
 
 router.put(
-  '/cards/:cardId/likes',
+  '/:cardId/likes',
   celebrate({
     [Segments.PARAMS]: Joi.object().keys({
       cardId: idValidator,
@@ -48,7 +48,7 @@ router.put(
 );
 
 router.delete(
-  '/cards/:cardId/likes',
+  '/:cardId/likes',
   celebrate({
     [Segments.PARAMS]: Joi.object().keys({
       cardId: idValidator,

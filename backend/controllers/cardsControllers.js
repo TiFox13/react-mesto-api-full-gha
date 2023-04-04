@@ -7,8 +7,9 @@ const { Forbidden } = require('../Errors/Forbidden');
 // ПОЛУЧЕНИЕ КАРТОЧЕК
 function getCards(req, res, next) {
   return CardSchema.find({})
+  .populate(['owner'])
     .then((cards) => res.send(cards))
-    .catch(() => next(new InternalServerError()));
+    .catch();
 }
 
 // СОЗДАНИЕ КАРТОЧКИ
@@ -23,7 +24,7 @@ function createCard(req, res, next) {
       if (err.name === 'ValidationError') {
         next(new CastError('Переданы некорректные данные при создании карточки'));
       } else {
-        next(new InternalServerError());
+        next();
       }
     });
 }
@@ -42,13 +43,13 @@ function deleteCard(req, res, next) {
       }
       CardSchema.findByIdAndRemove(req.params.cardId)
         .then(() => res.send({ message: 'Карточка успешно удалена' }))
-        .catch(() => next(new InternalServerError()));
+        .catch();
     })
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new CastError('Переданы некорректные данные _id пользователя'));
       } else {
-        next(new InternalServerError());
+        next();
       }
     });
 }
@@ -60,6 +61,7 @@ function putLike(req, res, next) {
     { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
     { new: true },
   )
+  .populate('likes')
     .then((card) => {
       if (!card) {
         next(new ValidationError('Переданы некорректные данные для постановки лайка'));
@@ -71,7 +73,7 @@ function putLike(req, res, next) {
       if (err.name === 'CastError') {
         next(new CastError('Передан несуществующий _id карточки'));
       } else {
-        next(new InternalServerError());
+        next();
       }
     });
 }
@@ -94,7 +96,7 @@ function deleteLike(req, res, next) {
       if (err.name === 'CastError') {
         next(new CastError('Передан несуществующий _id карточки'));
       } else {
-        next(new InternalServerError());
+        next();
       }
     });
 }

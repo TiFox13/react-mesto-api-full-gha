@@ -25,10 +25,9 @@ router.post(
     [Segments.BODY]: Joi.object().keys({
       email: Joi.string().email().required(),
       password: Joi.string().required(),
-      name: Joi.string().min(2).max(30).default('Жак-Ив Кусто'),
-      about: Joi.string().min(2).max(30).default('Исследователь'),
+      name: Joi.string().min(2).max(30),
+      about: Joi.string().min(2).max(30),
       avatar: Joi.string()
-        .default('https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png')
         .pattern(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/),
     }),
   }),
@@ -54,8 +53,8 @@ router.patch(
   '/users/me',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
-      name: Joi.string().min(2).max(30),
-      about: Joi.string().min(2).max(30),
+      name: Joi.string().min(2).max(30).required(),
+      about: Joi.string().min(2).max(30).required(),
     }),
   }),
   auth,
@@ -67,7 +66,8 @@ router.patch(
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       avatar: Joi.string()
-        .pattern(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/),
+        .pattern(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/)
+        .required(),
     }),
   }),
   auth,

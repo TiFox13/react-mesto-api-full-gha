@@ -11,9 +11,8 @@ const errorHandler = require('./middlewares/error');
 
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
-const { ValidationError } = require('./Errors/ValidationError');
-
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { CastError } = require('./Errors/CastError');
 
 mongoose.connect('mongodb://0.0.0.0:27017/mestodb', {
   useNewUrlParser: true,
@@ -37,15 +36,16 @@ app.get('/crash-test', () => {
 });
 
 // основные роуты
-app.use(usersRouter);
-app.use(cardsRouter);
+app.use( usersRouter);
+app.use('/cards', cardsRouter);
+
+app.use('*', (req, res, next) => {
+  next(new CastError('Страницы по данному адресу не существует'));
+});
 
 // логгер ошибок
 app.use(errorLogger);
 
-app.use('*', (req, res, next) => {
-  next(new ValidationError('Страницы по данному адресу не существует'));
-});
 
 app.use(errors());
 app.use(errorHandler);
