@@ -173,7 +173,7 @@ function App() {
 
   //ЛАЙКИ
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i === currentUser._id);
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
     if (!isLiked) {    // если не лайкали, то надо лайкнуть!
       api.putLike(card._id, !isLiked)

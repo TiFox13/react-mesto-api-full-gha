@@ -1,15 +1,14 @@
 const CardSchema = require('../models/card');
 const { ValidationError } = require('../Errors/ValidationError');
 const { CastError } = require('../Errors/CastError');
-const { InternalServerError } = require('../Errors/InternalServerError');
 const { Forbidden } = require('../Errors/Forbidden');
 
 // ПОЛУЧЕНИЕ КАРТОЧЕК
 function getCards(req, res, next) {
   return CardSchema.find({})
-  .populate(['owner'])
+  .populate(['owner', 'likes'])
     .then((cards) => res.send(cards))
-    .catch();
+    .catch(next);
 }
 
 // СОЗДАНИЕ КАРТОЧКИ
@@ -19,7 +18,7 @@ function createCard(req, res, next) {
     link: req.body.link,
     owner: req.user._id, // ID пользователя. доступный благодаря мидлвэру в app.js
   })
-    .then((card) => res.send(card))
+    .then((card) => res.status(201).send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new CastError('Переданы некорректные данные при создании карточки'));
@@ -61,7 +60,7 @@ function putLike(req, res, next) {
     { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
     { new: true },
   )
-  .populate('likes')
+  .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
         next(new ValidationError('Переданы некорректные данные для постановки лайка'));
@@ -85,6 +84,7 @@ function deleteLike(req, res, next) {
     { $pull: { likes: req.user._id } }, // убрать _id из массива
     { new: true },
   )
+  .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
         next(new ValidationError('Переданы некорректные данные для снятия лайка'));

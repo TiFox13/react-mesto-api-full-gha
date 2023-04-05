@@ -53,7 +53,6 @@ class Api {
         body: JSON.stringify({
           name: item.name,
           link: item.link,
-          // likes: {}
         })
       }
     )
