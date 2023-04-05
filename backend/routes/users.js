@@ -9,7 +9,7 @@ const {
   getUserById,
 } = require('../controllers/usersControllers');
 const { idValidator } = require('../utils/validator');
-
+const {LINK_SCHEME} = require('../utils/constants');
 
 router.get('/', auth, getUsers);
 
@@ -43,7 +43,7 @@ router.patch(
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       avatar: Joi.string()
-        .pattern(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/)
+        .pattern(LINK_SCHEME)
         .required(),
     }),
   }),

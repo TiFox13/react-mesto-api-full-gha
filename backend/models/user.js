@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const { Unauthorized } = require('../Errors/Unauthorized');
+const {LINK_SCHEME} = require('../utils/constants');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -36,7 +37,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     validate: {
       validator(v) {
-        return /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/.test(v);
+        return LINK_SCHEME.test(v);
       },
       message: 'Некорректный формат ссылки',
     },

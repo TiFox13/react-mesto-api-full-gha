@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {LINK_SCHEME} = require('../utils/constants');
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -12,7 +13,7 @@ const cardSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(v) {
-        return /(https?:\/\/)(w{3}\.)?(((\d{1,3}\.){3}\d{1,3})|((\w-?)+\.(ru|com)))(:\d{2,5})?((\/.+)+)?\/?#?/.test(v);
+        return LINK_SCHEME.test(v);
       },
       message: 'Некорректный формат ссылки',
     },

@@ -12,20 +12,22 @@ function getCards(req, res, next) {
 }
 
 // СОЗДАНИЕ КАРТОЧКИ
-function createCard(req, res, next) {
-  CardSchema.create({
+async function createCard(req, res, next) {
+  try {
+ const card = await CardSchema.create({
     name: req.body.name,
     link: req.body.link,
     owner: req.user._id, // ID пользователя. доступный благодаря мидлвэру в app.js
   })
-    .then((card) => res.status(201).send(card))
-    .catch((err) => {
+  await card.populate('owner')
+   await res.status(201).send(card)
+} catch(err)  {
       if (err.name === 'ValidationError') {
         next(new CastError('Переданы некорректные данные при создании карточки'));
       } else {
         next();
       }
-    });
+    };
 }
 
 // УДАЛЕНИЕ КАРТОЧКИ
