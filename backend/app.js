@@ -11,7 +11,7 @@ const errorHandler = require('./middlewares/error');
 
 const router = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { CastError } = require('./Errors/CastError');
+const { NotFoundError } = require('./Errors/NotFoundError');
 
 // подключили базу данных
 mongoose.connect('mongodb://0.0.0.0:27017/mestodb', {
@@ -38,7 +38,7 @@ app.get('/crash-test', () => {
 app.use( router );
 
 app.use('*', (req, res, next) => {
-  next(new CastError('Страницы по данному адресу не существует'));
+  next(new NotFoundError('Страницы по данному адресу не существует'));
 });
 
 // логгер ошибок

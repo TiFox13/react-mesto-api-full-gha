@@ -4,9 +4,8 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const UserSchema = require('../models/user');
-const { ValidationError } = require('../Errors/ValidationError');
+const { NotFoundError } = require('../Errors/NotFoundError');
 const { CastError } = require('../Errors/CastError');
-const { InternalServerError } = require('../Errors/InternalServerError');
 const { Conflict } = require('../Errors/Conflict');
 
 // ВХОД
@@ -16,7 +15,6 @@ function login(req, res, next) {
   return UserSchema.findUserByCredentials({ email, password })
     // все сошлось, теперь выдаем пользователю токен
     .then((user) => {
-      console.log(NODE_ENV)
       const token = jwt.sign({ _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
         { expiresIn: '7d' });
@@ -39,7 +37,7 @@ function getUserById(req, res, next) {
   UserSchema.findById(req.params.userId)
     .then((user) => {
       if (!user) {
-        next(new ValidationError('Пользователь с указанным _id не найден'));
+        next(new NotFoundError('Пользователь с указанным _id не найден'));
         return;
       }
       res.send(user);
@@ -60,7 +58,7 @@ function getUser(req, res, next) {
     .then((user) => {
       // проверяем, есть ли пользователь с таким id
       if (!user) {
-        next(new ValidationError('Пользователь  не найден'));
+        next(new NotFoundError('Пользователь  не найден'));
         return;
       }
       // возвращаем пользователя, если он есть
@@ -110,7 +108,7 @@ function patchUserInfo(req, res, next) {
   )
     .then((user) => {
       if (!user) {
-        return next(new ValidationError('Пользователь с указанным _id не найден'));
+        return next(new NotFoundError('Пользователь с указанным _id не найден'));
       }
       return res.send(user);
     })
@@ -134,7 +132,7 @@ function pathAvatar(req, res, next) {
   )
     .then((user) => {
       if (!user) {
-        next(new ValidationError('Пользователь с указанным _id не найден'));
+        next(new NotFoundError('Пользователь с указанным _id не найден'));
       }
       return res.send(user);
     })

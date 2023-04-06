@@ -1,5 +1,5 @@
 const CardSchema = require('../models/card');
-const { ValidationError } = require('../Errors/ValidationError');
+const { NotFoundError } = require('../Errors/NotFoundError');
 const { CastError } = require('../Errors/CastError');
 const { Forbidden } = require('../Errors/Forbidden');
 
@@ -35,7 +35,7 @@ function deleteCard(req, res, next) {
   CardSchema.findById(req.params.cardId)
     .then((card) => {
       if (!card) {
-        next(new ValidationError('Карточка с указанным _id не найдена'));
+        next(new NotFoundError('Карточка с указанным _id не найдена'));
         return;
       }
       if (card.owner.valueOf() !== req.user._id) {
@@ -65,7 +65,7 @@ function putLike(req, res, next) {
   .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
-        next(new ValidationError('Переданы некорректные данные для постановки лайка'));
+        next(new NotFoundError('Переданы некорректные данные для постановки лайка'));
         return;
       }
       res.send(card);
@@ -89,7 +89,7 @@ function deleteLike(req, res, next) {
   .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
-        next(new ValidationError('Переданы некорректные данные для снятия лайка'));
+        next(new NotFoundError('Переданы некорректные данные для снятия лайка'));
         return;
       }
       res.send(card);

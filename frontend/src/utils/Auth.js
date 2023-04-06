@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3001';  //возможно пока надо http
+export const BASE_URL = 'http://localhost:3001';
 
 
 const getResponse = (res) => {

@@ -1,7 +1,7 @@
  class Api {
   constructor(object) {
     this._token = object.token;
-    this._url = object.url;   //https://mesto.nomoreparties.co/v1/cohort-54
+    this._url = object.url;  
     this._headers = object.headers;
   }
 
